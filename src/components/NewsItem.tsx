@@ -15,6 +15,7 @@ interface NewsItemProps {
   emoji: string
   onVote: (id: string, isUpvote: boolean) => void
   hasVoted: boolean
+  index: number
 }
 
 export function NewsItem({
@@ -28,7 +29,8 @@ export function NewsItem({
   category,
   emoji,
   onVote,
-  hasVoted
+  hasVoted,
+  index
 }: NewsItemProps) {
   const { username, isAuthenticated } = useFarcasterAuth()
   const { deleteItem } = useDeleteItem()
@@ -48,85 +50,108 @@ export function NewsItem({
   const formatTime = (dateString: string) => {
     const date = new Date(dateString)
     const now = new Date()
-    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
-    
-    if (diffInHours < 1) return 'just now'
-    if (diffInHours < 24) return `${diffInHours}h ago`
-    if (diffInHours < 168) return `${Math.floor(diffInHours / 24)}d ago`
-    return date.toLocaleDateString()
+    const seconds = Math.floor((now.getTime() - date.getTime()) / 1000)
+    let interval = seconds / 31536000
+    if (interval > 1) return `${Math.floor(interval)} years ago`
+    interval = seconds / 2592000
+    if (interval > 1) return `${Math.floor(interval)} months ago`
+    interval = seconds / 86400
+    if (interval > 1) return `${Math.floor(interval)} days ago`
+    interval = seconds / 3600
+    if (interval > 1) return `${Math.floor(interval)} hours ago`
+    interval = seconds / 60
+    if (interval > 1) return `${Math.floor(interval)} minutes ago`
+    return `${Math.floor(seconds)} seconds ago`
+  }
+
+  const extractDomain = (url: string) => {
+    try {
+      const domain = new URL(url).hostname.replace('www.', '')
+      return domain
+    } catch {
+      return url
+    }
   }
 
   return (
-    <div className="flex items-start space-x-3 p-4 hover:bg-gray-50 transition-colors">
-      {/* Vote Button */}
-      <div className="flex flex-col items-center space-y-1">
-        <button
-          onClick={() => handleVote(true)}
-          className={`p-1 rounded transition-colors ${
-            hasVoted 
-              ? 'text-orange-500' 
-              : 'text-gray-400 hover:text-gray-600'
-          }`}
-        >
-          <ThumbsUp className="w-4 h-4" />
-        </button>
-        <span className="text-sm font-medium text-gray-900">{points}</span>
-      </div>
-
-      {/* Content */}
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start space-x-2">
-          <span className="text-lg flex-shrink-0">{emoji}</span>
-          <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-medium text-gray-900 leading-tight">
-              <Link 
-                to={`/post/${id}`}
-                className="hover:text-toptop-blue transition-colors"
-              >
-                {title}
-              </Link>
-            </h3>
-            <div className="flex items-center space-x-4 mt-2 text-xs text-gray-500">
-              <span>by {author}</span>
-              <span>{formatTime(createdAt)}</span>
-              <span className="flex items-center space-x-1">
-                <MessageCircle className="w-3 h-3" />
-                <span>{comments} comments</span>
-              </span>
-              <span className="bg-gray-100 px-2 py-1 rounded text-xs">
-                {category}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Actions */}
-      <div className="flex flex-col items-end space-y-2">
-        {/* Delete Button */}
-        {username === author && (
-          <button
-            onClick={handleDelete}
-            className="text-red-600 hover:text-red-800 p-1"
-            title="Delete post"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
-        )}
-        
-        {/* External Link */}
-        <a 
-          href={url} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
-          title="Open link"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-          </svg>
-        </a>
-      </div>
-    </div>
+    <tr>
+      <td className="subtext" style={{ fontSize: "10pt" }}>
+        <table cellPadding="0" cellSpacing="0" style={{ width: "100%" }}>
+          <tbody>
+            <tr>
+              <td className="votelinks" style={{ verticalAlign: "top", textAlign: "center" }}>
+                <div className="votearrow" 
+                     style={{
+                       width: "10px",
+                       height: "10px",
+                       border: "0px",
+                       margin: "3px 2px 6px",
+                       cursor: "pointer",
+                       background: hasVoted ? "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUgMEw5IDZIMFY2TDVaIiBmaWxsPSIjZmY2NjAwIi8+Cjwvc3ZnPgo=')" : "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUgMEw5IDZIMFY2TDVaIiBmaWxsPSIjODI4MjgyIi8+Cjwvc3ZnPgo=')"
+                     }}
+                     onClick={() => handleVote(true)}
+                     title="upvote"
+                ></div>
+              </td>
+              <td className="title" style={{ verticalAlign: "top", paddingLeft: "2px" }}>
+                <span style={{ color: "#828282" }}>{index}. </span>
+                <span style={{ fontSize: "18px", marginRight: "4px" }}>{emoji}</span>
+                <Link 
+                  to={`/post/${id}`}
+                  style={{ color: "#000000", textDecoration: "none" }}
+                  className="title"
+                >
+                  {title}
+                </Link>
+                <span style={{ color: "#828282" }}> </span>
+                <span style={{ color: "#828282", fontSize: "8pt" }}>
+                  (<a href={url} target="_blank" rel="noopener noreferrer" style={{ color: "#828282" }}>
+                    {extractDomain(url)}
+                  </a>)
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td className="subtext" style={{ fontSize: "7pt", color: "#828282" }}>
+                <span>{points} points</span>
+                <span> by </span>
+                <a href={`/user/${author}`} style={{ color: "#828282" }} className="hnuser">
+                  {author}
+                </a>
+                <span> </span>
+                <span>{formatTime(createdAt)}</span>
+                <span> | </span>
+                <Link to={`/post/${id}`} style={{ color: "#828282" }}>
+                  {comments} comments
+                </Link>
+                <span> | </span>
+                <span style={{ color: "#828282" }}>{category}</span>
+                {username === author && (
+                  <>
+                    <span> | </span>
+                    <button
+                      onClick={handleDelete}
+                      style={{ 
+                        background: "none", 
+                        border: "none", 
+                        color: "#ff0000", 
+                        cursor: "pointer",
+                        fontSize: "7pt",
+                        padding: "0",
+                        textDecoration: "underline"
+                      }}
+                      title="Delete post"
+                    >
+                      delete
+                    </button>
+                  </>
+                )}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
   )
 } 

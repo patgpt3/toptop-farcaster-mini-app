@@ -7,14 +7,14 @@ import apiService from '../services/apiService'
 import { TrendingUp, Zap, Gamepad2, Film, Coins, Image, Wifi, FlaskConical } from 'lucide-react'
 
 const categories = [
-  { name: 'Crypto', icon: TrendingUp, href: '/crypto', color: 'text-blue-600' },
-  { name: 'AI', icon: Zap, href: '/ai', color: 'text-purple-600' },
-  { name: 'Gaming', icon: Gamepad2, href: '/gaming', color: 'text-green-600' },
-  { name: 'Film', icon: Film, href: '/film', color: 'text-red-600' },
-  { name: 'Memecoins', icon: Coins, href: '/memecoins', color: 'text-yellow-600' },
-  { name: 'NFT', icon: Image, href: '/nft', color: 'text-pink-600' },
-  { name: 'DePIN', icon: Wifi, href: '/depin', color: 'text-indigo-600' },
-  { name: 'DeSci', icon: FlaskConical, href: '/desci', color: 'text-cyan-600' },
+  { name: 'Crypto', icon: TrendingUp, href: '/crypto', color: '#053eff' },
+  { name: 'AI', icon: Zap, href: '/ai', color: 'purple' },
+  { name: 'Gaming', icon: Gamepad2, href: '/gaming', color: 'green' },
+  { name: 'Film', icon: Film, href: '/film', color: 'red' },
+  { name: 'Memecoins', icon: Coins, href: '/memecoins', color: 'green' },
+  { name: 'NFT', icon: Image, href: '/nft', color: '#d1d10a' },
+  { name: 'DePIN', icon: Wifi, href: '/depin', color: 'red' },
+  { name: 'DeSci', icon: FlaskConical, href: '/desci', color: 'orange' },
 ]
 
 export function Home() {
@@ -61,96 +61,147 @@ export function Home() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          TopTop Network
-        </h1>
-        <p className="text-gray-600">
-          Discover the latest in Crypto, AI, Gaming, and Web3
-        </p>
-      </div>
+    <div id="root">
+      <center>
+        <table
+          id="hnmain"
+          cellPadding="0"
+          cellSpacing="0"
+          width="85%"
+          style={{ backgroundColor: "#f5f8f8" }}
+        >
+          <tbody>
+            <tr>
+              <td style={{ backgroundColor: "#053eff" }}>
+                <table
+                  cellPadding="0"
+                  cellSpacing="0"
+                  width="100%"
+                  style={{ padding: "2px" }}
+                >
+                  <tbody>
+                    <tr>
+                      <td style={{ lineHeight: "12pt", height: "18px" }}>
+                        <span className="pagetop" style={{ color: "white" }}>
+                          <b className="hnname" style={{ color: "white" }}>
+                            <a
+                              style={{ color: "white", marginLeft: "3px" }}
+                              href="/"
+                            >
+                              TopTop Network
+                            </a>{" "}
+                          </b>
+                          <a href="/submit" style={{ color: "white" }}>
+                            submit
+                          </a>{" "}
+                          |{" "}
+                          <a style={{ color: "white" }} href="/">
+                            home
+                          </a>
+                        </span>
+                      </td>
+                      <td style={{ textAlign: "right", paddingRight: "4px" }}>
+                        <span
+                          className="pagetop"
+                          style={{ color: "white", display: "block" }}
+                        >
+                          <div id="log" style={{ cursor: "pointer" }}>
+                            {/* Farcaster Connect Button will be here */}
+                          </div>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr id="pagespace" style={{ height: "5px" }}></tr>
+            <tr>
+              <td>
+                <table cellPadding="0" cellSpacing="0">
+                  <tbody>
+                    <tr>
+                      <td style={{ paddingLeft: "8px", paddingRight: "8px" }}>
+                        {/* Category Navigation */}
+                        <div style={{ marginBottom: "10px" }}>
+                          <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", justifyContent: "center" }}>
+                            {categories.map((category) => (
+                              <div key={category.name} style={{ margin: "5px", marginLeft: "0px" }}>
+                                <Link
+                                  to={category.href}
+                                  style={{ 
+                                    color: category.color, 
+                                    margin: "5px",
+                                    textDecoration: selectedCategory === category.name ? "underline" : "none"
+                                  }}
+                                  onClick={() => setSelectedCategory(category.name)}
+                                >
+                                  <u>{category.name}</u>
+                                </Link>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
 
-      {/* Category Navigation */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
-        <h2 className="text-lg font-semibold mb-4">Categories</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {categories.map((category) => {
-            const Icon = category.icon
-            return (
-              <Link
-                key={category.name}
-                to={category.href}
-                className={`flex items-center space-x-2 p-3 rounded-lg border transition-colors duration-200 hover:bg-gray-50 ${
-                  selectedCategory === category.name
-                    ? 'border-toptop-blue bg-blue-50'
-                    : 'border-gray-200'
-                }`}
-                onClick={() => setSelectedCategory(category.name)}
-              >
-                <Icon className={`w-5 h-5 ${category.color}`} />
-                <span className="font-medium text-gray-900 text-sm">{category.name}</span>
-              </Link>
-            )
-          })}
-        </div>
-      </div>
-
-      {/* Posts Feed */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div className="p-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold">
-            Latest in {selectedCategory}
-          </h2>
-          <p className="text-sm text-gray-600 mt-1">
-            Posts from both Farcaster and web users
-          </p>
-        </div>
-
-        <div className="divide-y divide-gray-200">
-          {posts && posts.length > 0 ? (
-            posts.map((post: any) => (
-              <NewsItem
-                key={post._id}
-                id={post._id}
-                title={post.title}
-                url={post.url}
-                author={post.author}
-                points={post.points || 0}
-                comments={post.comments?.length || 0}
-                createdAt={post.createdAt}
-                category={selectedCategory}
-                emoji={post.emoji || '📰'}
-                onVote={handleVote}
-                hasVoted={false} // TODO: Implement vote tracking
-              />
-            ))
-          ) : (
-            <div className="p-8 text-center text-gray-500">
-              <p>No posts found in {selectedCategory}</p>
-              <p className="text-sm mt-2">Be the first to share something!</p>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Farcaster Integration Info */}
-      <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-6 border border-purple-200 mt-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">
-          🚀 Farcaster Integration
-        </h3>
-        <p className="text-gray-700 mb-4">
-          Connect your Farcaster account to post, vote, and comment. Your posts will appear
-          alongside web app users, creating a unified community experience.
-        </p>
-        <div className="flex flex-wrap gap-2 text-sm text-gray-600">
-          <span className="bg-white px-2 py-1 rounded">✨ Cross-platform posts</span>
-          <span className="bg-white px-2 py-1 rounded">🗳️ Unified voting</span>
-          <span className="bg-white px-2 py-1 rounded">💬 Shared comments</span>
-          <span className="bg-white px-2 py-1 rounded">🔗 Seamless integration</span>
-        </div>
-      </div>
+                        {/* Posts Feed */}
+                        <div className="divide-y divide-gray-200">
+                          {posts && posts.length > 0 ? (
+                            posts.map((post: any, index: number) => (
+                              <NewsItem
+                                key={post._id}
+                                id={post._id}
+                                title={post.title}
+                                url={post.url}
+                                author={post.author}
+                                points={post.points || 0}
+                                comments={post.comments?.length || 0}
+                                createdAt={post.createdAt}
+                                category={selectedCategory}
+                                emoji={post.emoji || '📰'}
+                                onVote={handleVote}
+                                hasVoted={false}
+                                index={index + 1}
+                              />
+                            ))
+                          ) : (
+                            <div style={{ padding: "20px", textAlign: "center", color: "#828282" }}>
+                              <p>No posts found in {selectedCategory}</p>
+                              <p style={{ fontSize: "9pt", marginTop: "5px" }}>Be the first to share something!</p>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="./Hacker News_files/s.gif" height="10" width="0" />
+                <table width="100%" cellSpacing="0" cellPadding="1">
+                  <tbody>
+                    <tr>
+                      <td style={{ backgroundColor: "#053eff" }}></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br />
+                <center
+                  style={{
+                    fontSize: "8px",
+                    paddingLeft: "8px",
+                    paddingRight: "8px",
+                    color: "#828282"
+                  }}
+                >
+                  <span>TopTop Network Farcaster Mini App</span>
+                </center>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </center>
     </div>
   )
 } 
