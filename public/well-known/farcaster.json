@@ -1,0 +1,76 @@
+{
+  "name": "TopTop Network",
+  "description": "Discover the latest in Crypto, AI, Gaming, and Web3. Browse, vote, and submit posts across 8 categories with seamless Farcaster integration.",
+  "version": "1.0.0",
+  "icon": "https://toptop.network/icon.png",
+  "splash": "https://toptop.network/splash.png",
+  "permissions": [
+    "notifications",
+    "wallet",
+    "share"
+  ],
+  "categories": [
+    "social",
+    "news",
+    "crypto",
+    "ai"
+  ],
+  "tags": [
+    "crypto",
+    "ai",
+    "gaming",
+    "web3",
+    "news",
+    "social",
+    "farcaster"
+  ],
+  "author": {
+    "name": "TopTop Network",
+    "url": "https://toptop.network"
+  },
+  "homepage": "https://toptop.network",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toptop-network/farcaster-mini-app"
+  },
+  "features": [
+    "Browse posts across 8 categories",
+    "Vote on posts and comments",
+    "Submit new posts with emojis",
+    "Real-time updates",
+    "Cross-platform integration",
+    "Farcaster authentication",
+    "Mobile optimized interface"
+  ],
+  "screenshots": [
+    "https://toptop.network/screenshot1.png",
+    "https://toptop.network/screenshot2.png",
+    "https://toptop.network/screenshot3.png"
+  ],
+  "social": {
+    "twitter": "@toptopnetwork",
+    "discord": "https://discord.gg/toptop",
+    "telegram": "https://t.me/toptopnetwork"
+  },
+  "api": {
+    "baseUrl": "https://crypto-news-api-backend-b5addae00d92.herokuapp.com"
+  },
+  "notifications": {
+    "enabled": true,
+    "types": [
+      "new_posts",
+      "votes",
+      "comments"
+    ]
+  },
+  "wallet": {
+    "supportedChains": ["ethereum"],
+    "features": ["sign_message", "get_address"]
+  },
+  "integration": {
+    "crossPlatform": true,
+    "sharedBackend": true,
+    "unifiedPosts": true,
+    "realTimeUpdates": true
+  }
+} 

@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-toptop-gray text-toptop-dark;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-toptop-blue text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition-colors duration-200;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-4;
+  }
+  
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-toptop-blue focus:border-transparent;
+  }
+  
+  .upvote-icon {
+    @apply w-4 h-4 text-toptop-orange cursor-pointer hover:scale-110 transition-transform duration-200;
+  }
+  
+  .news-item {
+    @apply flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors duration-200;
+  }
+  
+  .news-title {
+    @apply text-sm font-medium text-gray-900 hover:text-toptop-blue transition-colors duration-200;
+  }
+  
+  .news-meta {
+    @apply text-xs text-gray-500 mt-1;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+} 
