@@ -50,7 +50,7 @@ export function Home() {
     return (
       <div className="text-center py-8">
         <p className="text-red-600 mb-4">Failed to load posts</p>
-        <button 
+        <button
           onClick={() => refetch()}
           className="btn-primary"
         >
@@ -61,9 +61,9 @@ export function Home() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-4xl mx-auto px-4 py-6">
       {/* Header */}
-      <div className="text-center">
+      <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           TopTop Network
         </h1>
@@ -73,9 +73,9 @@ export function Home() {
       </div>
 
       {/* Category Navigation */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
         <h2 className="text-lg font-semibold mb-4">Categories</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {categories.map((category) => {
             const Icon = category.icon
             return (
@@ -90,7 +90,7 @@ export function Home() {
                 onClick={() => setSelectedCategory(category.name)}
               >
                 <Icon className={`w-5 h-5 ${category.color}`} />
-                <span className="font-medium text-gray-900">{category.name}</span>
+                <span className="font-medium text-gray-900 text-sm">{category.name}</span>
               </Link>
             )
           })}
@@ -136,12 +136,12 @@ export function Home() {
       </div>
 
       {/* Farcaster Integration Info */}
-      <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-6 border border-purple-200">
+      <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-6 border border-purple-200 mt-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-2">
           🚀 Farcaster Integration
         </h3>
         <p className="text-gray-700 mb-4">
-          Connect your Farcaster account to post, vote, and comment. Your posts will appear 
+          Connect your Farcaster account to post, vote, and comment. Your posts will appear
           alongside web app users, creating a unified community experience.
         </p>
         <div className="flex flex-wrap gap-2 text-sm text-gray-600">

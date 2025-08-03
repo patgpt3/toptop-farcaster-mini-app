@@ -152,6 +152,39 @@ class APIService {
     return this.fetch(url)
   }
 
+  // Delete an item (post)
+  async deleteItem(itemId: string): Promise<any> {
+    const url = `${API_BASE}/items/${itemId}`
+    return this.fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
+
+  // Delete a comment
+  async deleteComment(commentId: string): Promise<any> {
+    const url = `${API_BASE}/comments/${commentId}`
+    return this.fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
+
+  // Delete a reply
+  async deleteReply(replyId: string): Promise<any> {
+    const url = `${API_BASE}/replies/${replyId}`
+    return this.fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
+
   // Clear cache for specific patterns
   clearCache(pattern?: string): void {
     if (pattern) {
