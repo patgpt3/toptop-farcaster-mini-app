@@ -27,7 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             accentColor: '#3B82F6',
             showWalletLoginFirst: false,
           },
-          // Keep Solana wallet configuration with type assertion to bypass TypeScript issues
+          // Simplified Solana wallet configuration to avoid runtime errors
           externalWallets: {
             solana: {
               connectors: [
@@ -38,10 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                   },
                 },
               ],
-              onMount: () => {},
-              onUnmount: () => {},
-              get: () => Promise.resolve(null),
-            } as any,
+            },
           },
         }}
       >
