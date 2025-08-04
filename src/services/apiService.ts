@@ -66,30 +66,39 @@ class APIService {
     }
   }
 
-  // Get items by category (same as main app)
+  // Get items by category (fixed to match backend endpoints)
   async getItems(category: string, page: number = 1, type: 'main' | 'newest' | 'ask' | 'show' = 'main'): Promise<any[]> {
-    const url = `${API_BASE}/items/${type}/pages/${category.toLowerCase()}`
+    const url = `${API_BASE}/items/${type}/pages/cat`
     return this.fetch(url, {
       method: 'PUT',
-      body: JSON.stringify({ page }),
+      body: JSON.stringify({ 
+        pageNumber: page, 
+        cat: category 
+      }),
     })
   }
 
-  // Get jobs by category
+  // Get jobs by category (fixed to match backend endpoints)
   async getJobs(category: string, page: number = 1): Promise<any[]> {
-    const url = `${API_BASE}/jobs/${category.toLowerCase()}`
+    const url = `${API_BASE}/jobs/jobs/newest/pages/cat`
     return this.fetch(url, {
       method: 'PUT',
-      body: JSON.stringify({ page }),
+      body: JSON.stringify({ 
+        pageNumber: page, 
+        cat: category 
+      }),
     })
   }
 
-  // Get comments by category
+  // Get comments by category (fixed to match backend endpoints)
   async getComments(category: string, page: number = 1): Promise<any[]> {
-    const url = `${API_BASE}/comments/${category.toLowerCase()}`
+    const url = `${API_BASE}/comments/comments/newest/pages/cat`
     return this.fetch(url, {
       method: 'PUT',
-      body: JSON.stringify({ page }),
+      body: JSON.stringify({ 
+        pageNumber: page, 
+        cat: category 
+      }),
     })
   }
 

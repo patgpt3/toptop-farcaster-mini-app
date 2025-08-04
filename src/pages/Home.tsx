@@ -100,77 +100,6 @@ export function Home() {
                           </a>
                         </span>
                       </td>
-                      <td style={{ textAlign: "right", paddingRight: "4px" }}>
-                        <span
-                          className="pagetop"
-                          style={{ color: "white", display: "block" }}
-                        >
-                          <div id="log" style={{ cursor: "pointer" }}>
-                            {/* Farcaster Connect Button will be here */}
-                          </div>
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-            <tr id="pagespace" style={{ height: "5px" }}></tr>
-            <tr>
-              <td>
-                <table cellPadding="0" cellSpacing="0">
-                  <tbody>
-                    <tr>
-                      <td style={{ paddingLeft: "8px", paddingRight: "8px" }}>
-                        {/* Category Navigation */}
-                        <div style={{ marginBottom: "10px" }}>
-                          <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", justifyContent: "center" }}>
-                            {categories.map((category) => (
-                              <div key={category.name} style={{ margin: "5px", marginLeft: "0px" }}>
-                                <Link
-                                  to={category.href}
-                                  style={{ 
-                                    color: category.color, 
-                                    margin: "5px",
-                                    textDecoration: selectedCategory === category.name ? "underline" : "none"
-                                  }}
-                                  onClick={() => setSelectedCategory(category.name)}
-                                >
-                                  <u>{category.name}</u>
-                                </Link>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Posts Feed */}
-                        <div className="divide-y divide-gray-200">
-                          {posts && posts.length > 0 ? (
-                            posts.map((post: any, index: number) => (
-                              <NewsItem
-                                key={post._id}
-                                id={post._id}
-                                title={post.title}
-                                url={post.url}
-                                author={post.author}
-                                points={post.points || 0}
-                                comments={post.comments?.length || 0}
-                                createdAt={post.createdAt}
-                                category={selectedCategory}
-                                emoji={post.emoji || '📰'}
-                                onVote={handleVote}
-                                hasVoted={false}
-                                index={index + 1}
-                              />
-                            ))
-                          ) : (
-                            <div style={{ padding: "20px", textAlign: "center", color: "#828282" }}>
-                              <p>No posts found in {selectedCategory}</p>
-                              <p style={{ fontSize: "9pt", marginTop: "5px" }}>Be the first to share something!</p>
-                            </div>
-                          )}
-                        </div>
-                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -178,25 +107,67 @@ export function Home() {
             </tr>
             <tr>
               <td>
-                <img src="./Hacker News_files/s.gif" height="10" width="0" />
-                <table width="100%" cellSpacing="0" cellPadding="1">
-                  <tbody>
-                    <tr>
-                      <td style={{ backgroundColor: "#053eff" }}></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <br />
-                <center
-                  style={{
-                    fontSize: "8px",
-                    paddingLeft: "8px",
-                    paddingRight: "8px",
-                    color: "#828282"
-                  }}
+                <table
+                  cellPadding="0"
+                  cellSpacing="0"
+                  width="100%"
+                  style={{ backgroundColor: "#f5f8f8" }}
                 >
-                  <span>TopTop Network Farcaster Mini App</span>
-                </center>
+                  <tbody>
+                    <tr>
+                      <td style={{ padding: "10px" }}>
+                        <div style={{ marginBottom: "10px" }}>
+                          {categories.map((category) => (
+                            <div key={category.name} style={{ display: "inline-block", marginRight: "15px" }}>
+                              <Link
+                                to={category.href}
+                                style={{ 
+                                  color: category.color, 
+                                  textDecoration: "none",
+                                  fontWeight: selectedCategory === category.name ? "bold" : "normal"
+                                }}
+                                onClick={() => setSelectedCategory(category.name)}
+                              >
+                                <u>{category.name}</u>
+                              </Link>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        {posts && posts.length > 0 && (
+                          <table cellPadding="0" cellSpacing="0" width="100%">
+                            <tbody>
+                              {posts.map((post: any, index: number) => (
+                                <NewsItem
+                                  key={post._id}
+                                  id={post._id}
+                                  title={post.title}
+                                  url={post.url}
+                                  author={post.author}
+                                  points={post.points || 0}
+                                  comments={post.comments ? post.comments.length : 0}
+                                  createdAt={post.createdAt}
+                                  category={post.category}
+                                  emoji={post.emoji || '📰'}
+                                  onVote={handleVote}
+                                  hasVoted={false}
+                                  index={index + 1}
+                                />
+                              ))}
+                            </tbody>
+                          </table>
+                        )}
+
+                        {posts && posts.length === 0 && !isLoading && (
+                          <div style={{ textAlign: "center", padding: "40px", color: "#828282" }}>
+                            <p>No posts found in {selectedCategory}</p>
+                            <p style={{ fontSize: "12px", marginTop: "5px" }}>Be the first to share something!</p>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </td>
             </tr>
           </tbody>
