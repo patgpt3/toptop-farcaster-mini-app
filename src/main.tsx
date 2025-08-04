@@ -106,8 +106,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               accentColor: '#053eff',
               showWalletLoginFirst: false,
             },
-            defaultChain: 10 as any, // Optimism
-            supportedChains: [10, 8453, 7777777] as any[], // Optimism, Base, Zora
             externalWallets: {
               solana: {
                 connectors: [
