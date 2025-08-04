@@ -54,7 +54,7 @@ export function NFT() {
 
         <div className="divide-y divide-gray-200">
           {posts && posts.length > 0 ? (
-            posts.map((post: any) => (
+            posts.map((post: any, index: number) => (
               <NewsItem
                 key={post._id}
                 id={post._id}
@@ -65,9 +65,10 @@ export function NFT() {
                 comments={post.comments?.length || 0}
                 createdAt={post.createdAt}
                 category="NFT"
-                emoji={post.emoji || '🖼️'}
+                emoji={post.emoji || '📰'}
                 onVote={handleVote}
                 hasVoted={false}
+                index={index + 1}
               />
             ))
           ) : (

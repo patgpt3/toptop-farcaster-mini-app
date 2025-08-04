@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { ConnectButton } from './ConnectButton'
 
 interface LayoutProps {
   children: ReactNode
