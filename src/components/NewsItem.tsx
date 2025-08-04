@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { MessageCircle, ThumbsUp, ThumbsDown, Trash2 } from 'lucide-react'
 import { useFarcasterAuth } from '../hooks/useFarcasterAuth'
 import { useDeleteItem } from '../hooks/useDeleteItem'
 
