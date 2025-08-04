@@ -106,18 +106,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               accentColor: '#053eff',
               showWalletLoginFirst: false,
             },
-            externalWallets: {
-              solana: {
-                connectors: [
-                  {
-                    name: 'phantom',
-                    options: {
-                      shimDisconnect: true,
-                    },
-                  },
-                ] as any,
-              },
-            },
           }}
         >
           <BrowserRouter>
